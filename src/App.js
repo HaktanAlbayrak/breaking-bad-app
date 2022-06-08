@@ -4,15 +4,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //Pages
 import Home from "./Pages/Home";
+import Detail from "./Pages/Detail";
 import Profile from "./Pages/Profile";
-import About from "./Pages/About";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route exact path="/" element={<Home />} />
+        <Route path="/char/:char_id" element={<Detail />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>

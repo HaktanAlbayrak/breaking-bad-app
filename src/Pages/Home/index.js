@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import "./styles.css";
 import Masonry from "react-masonry-css";
 
+import { Link } from "react-router-dom";
+
 import Loading from "../../components/Loading";
 import Error from "../../components/Error";
 
@@ -18,9 +20,9 @@ const Home = () => {
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchCharacters());
+      dispatch(fetchCharacters(nextPage));
     }
-  }, [dispatch, status]);
+  }, [dispatch, status, nextPage]);
 
   // if (isLoading) {
   //   return <Loading />;
@@ -39,12 +41,14 @@ const Home = () => {
       >
         {characters.map((character) => (
           <div key={character.char_id}>
-            <img
-              alt={character.name}
-              src={character.img}
-              className="character"
-            />
-            <div className="char_name">{character.name}</div>
+            <Link to="/char/2">
+              <img
+                alt={character.name}
+                src={character.img}
+                className="character"
+              />
+              <div className="char_name">{character.name}</div>
+            </Link>
           </div>
         ))}
       </Masonry>

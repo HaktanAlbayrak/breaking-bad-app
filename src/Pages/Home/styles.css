@@ -10,9 +10,20 @@
 /* Style your items */
 .my-masonry-grid_column > div {
   /* change div to reference your elements in <masonry> */
-  background: #ddd;
-  padding: 20px;
   margin-bottom: 20px;
+}
+
+.my-masonry-grid_column > div > a {
+  display: block;
+  padding: 20px;
+  color: #333;
+  text-decoration: none;
+  background: #ddd;
+}
+
+.my-masonry-grid_column > div > a:hover {
+  color: #000;
+  background: #eee;
 }
 
 .character {
