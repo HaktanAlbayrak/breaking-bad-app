@@ -1,33 +1,62 @@
 import { useEffect } from "react";
 import "./styles.css";
-
 import Masonry from "react-masonry-css";
+
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
+
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCharacters } from "../../redux/charactersSlice";
 
 const Home = () => {
   const characters = useSelector((state) => state.characters.items);
+  const status = useSelector((state) => state.characters.status);
+  const nextPage = useSelector((state) => state.characters.page);
+  const hasNextPage = useSelector((state) => state.characters.hasNextPage);
+  const error = useSelector((state) => state.characters.error);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCharacters());
+    if (status === "idle") {
+      dispatch(fetchCharacters());
+    }
   }, [dispatch]);
+
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
+
+  if (status === "failed") {
+    return <Error message={error} />;
+  }
 
   return (
     <div>
-      <h1>Character</h1>
       <Masonry
-        breakpointCols={3}
+        breakpointCols={4}
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >
-        {/* array of JSX items */}
+        {characters.map((character) => (
+          <div key={character.char_id}>
+            <img
+              alt={character.name}
+              src={character.img}
+              className="character"
+            />
+            <div className="char_name">{character.name}</div>
+          </div>
+        ))}
       </Masonry>
-      {characters.map((character) => (
-        <div key={character.char_id}>
-          <img alt={character.name} src={character.img} className="character" />
-        </div>
-      ))}
+      <div style={{ padding: "20px 0 40px 0", textAlign: "center" }}>
+        {status === "loading" && <Loading />}
+        {hasNextPage && status !== "loading" && (
+          <button onClick={() => dispatch(fetchCharacters())}>
+            Load More ({nextPage})
+          </button>
+        )}
+        {!hasNextPage && <div>There is nothing to bo shown.</div>}
+      </div>
     </div>
   );
 };
