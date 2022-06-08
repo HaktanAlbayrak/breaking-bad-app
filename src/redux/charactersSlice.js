@@ -11,9 +11,8 @@ export const fetchCharacters = createAsyncThunk(
         process.env.REACT_APP_API_BASE_ENDPOINT
       }/characters?limit=${char_limit}&offset=${page * char_limit}`
     );
-    console.log("22", char_limit);
-    console.log("sasa", res.data);
-    console.log("pgae", page * char_limit);
+    console.log("page api", page * char_limit);
+    console.log("res", res);
     return res.data;
   }
 );
@@ -22,8 +21,9 @@ export const charactersSlice = createSlice({
   name: "characters",
   initialState: {
     items: [],
-    status: "idle",
     page: 0,
+    status: "idle",
+    error: null,
     hasNextPage: true,
   },
   reducers: {},
@@ -35,11 +35,11 @@ export const charactersSlice = createSlice({
       state.items = [...state.items, ...action.payload];
       state.status = "succeeded";
       state.page += 1;
+      console.log("page", state.page);
 
       if (action.payload.length < 12) {
         state.hasNextPage = false;
       }
-      console.log("ies", state.items);
     },
     [fetchCharacters.rejected]: (state, action) => {
       state.status = "failed";

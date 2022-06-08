@@ -20,7 +20,7 @@ const Home = () => {
     if (status === "idle") {
       dispatch(fetchCharacters());
     }
-  }, [dispatch]);
+  }, [dispatch, status]);
 
   // if (isLoading) {
   //   return <Loading />;
@@ -51,11 +51,11 @@ const Home = () => {
       <div style={{ padding: "20px 0 40px 0", textAlign: "center" }}>
         {status === "loading" && <Loading />}
         {hasNextPage && status !== "loading" && (
-          <button onClick={() => dispatch(fetchCharacters())}>
+          <button onClick={() => dispatch(fetchCharacters(nextPage))}>
             Load More ({nextPage})
           </button>
         )}
-        {!hasNextPage && <div>There is nothing to bo shown.</div>}
+        {!hasNextPage && <div>There is nothing to be shown.</div>}
       </div>
     </div>
   );
