@@ -41,7 +41,7 @@ const Home = () => {
       >
         {characters.map((character) => (
           <div key={character.char_id}>
-            <Link to="/char/2">
+            <Link to={`/char/${character.char_id}`}>
               <img
                 alt={character.name}
                 src={character.img}
