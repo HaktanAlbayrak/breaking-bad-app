@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./Pages/Home";
 import Detail from "./Pages/Detail";
 import Quotes from "./Pages/Quotes";
+import QuoteDetail from "./Pages/QuoteDetail";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/char/:char_id" element={<Detail />} />
-        <Route path="/quotes" element={<Quotes />} />
+        <Route exact path="/quotes" element={<Quotes />} />
+        <Route path="/quotes/:quote_id" element={<QuoteDetail />} />
       </Routes>
     </BrowserRouter>
   );
